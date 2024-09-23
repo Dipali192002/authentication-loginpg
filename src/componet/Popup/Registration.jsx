@@ -25,7 +25,8 @@ const Registration = ({ registrationPopup, handleRegistrationPopup }) => {
             const response = await axios.post("http://localhost:3000/v1/auth/register", {
                 name: data.name,
                 email: data.email,
-                password: data.password
+                password: data.password,
+                role: 'user'
             });
             console.log(response.status, response.data.token);
             toast.success('Registration successful!');
