@@ -18,7 +18,7 @@ const Login = ({ loginPopup, handleLoginPopup, handleRegistrationPopup }) => {
         e.preventDefault(); // Prevent default form submission
 
         try {
-            const response = await fetch('http://localhost:3000/v1/auth/login', {
+            const response = await fetch('http://localhost:3001/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,6 +30,7 @@ const Login = ({ loginPopup, handleLoginPopup, handleRegistrationPopup }) => {
                 
                 // Handle successful login, e.g., redirect or update state
                 console.log('Login successful');
+                localStorage.setItem('token', response.data.tokens.access.token);
                 handleLoginPopup(); // Close the login popup on successful login
             } else {
                 // Handle errors, e.g., display error message

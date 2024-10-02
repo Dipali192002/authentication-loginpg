@@ -84,10 +84,10 @@ const Hero = ({handlerOrderPopup}) => {
                          data-aos-duration="500"
                          data-aos-delay="300"
                          >
-                            <Button text = "Shop By Category"
+                            {/* <Button text = "Shop By Category"
                              bgColor="bg-primary"
                              textColor="text-white"
-                             handler={handlerOrderPopup} />
+                             handler={handlerOrderPopup} /> */}
                         </div>
                     </div>
                     {/* image section*/}

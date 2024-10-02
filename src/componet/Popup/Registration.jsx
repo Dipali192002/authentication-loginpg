@@ -22,7 +22,7 @@ const Registration = ({ registrationPopup, handleRegistrationPopup }) => {
 
         try {
             console.log('data', data);
-            const response = await axios.post("http://localhost:3000/v1/auth/register", {
+            const response = await axios.post("http://localhost:3001/v1/auth/register", {
                 name: data.name,
                 email: data.email,
                 password: data.password,

@@ -17,7 +17,7 @@ const Category = () => {
                     <p className='mb-[2px] text-white'>Enjoy</p>
                     <p className='text-2xl font-semibold mb-[2px]'>With</p>
                     <p className='text-4xl xl:text-5xl font-bold opacity-40'>Game Set</p>
-                    <Button text="Browse" bgColor={"bg-primary"} textColor={"text-white"}/>
+                    <a href='/shop?type=Game Set' className={`bg-primary text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10`}>Browse</a>
                 </div>
             </div>
             <img src={Image1} alt="" 
@@ -31,7 +31,7 @@ const Category = () => {
                     <p className='mb-[2px] text-gray-400'>Enjoy</p>
                     <p className='text-2xl font-semibold mb-[2px]'>With</p>
                     <p className='text-4xl xl:text-5xl font-bold opacity-20 mb-2'>VR</p>
-                    <Button text="Browse" bgColor={"bg-white"} textColor={"text-brandGreen"}/>
+                    <a href='/shop?type=VR' className={`bg-white text-brandGreen cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10`}>Browse</a>
                 </div>
             </div>
             <img src={Image2} alt="" 
@@ -44,7 +44,7 @@ const Category = () => {
                     <p className='mb-[2px] text-white'>Enjoy</p>
                     <p className='text-2xl font-semibold mb-[2px]'>With</p>
                     <p className='text-4xl xl:text-5xl font-bold opacity-40 mb-2'>Speaker</p>
-                    <Button text="Browse" bgColor={"bg-white"} textColor={"text-brandBlue"}/>
+                    <a href='/shop?type=Speaker' className={`bg-white text-brandBlue cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10`}>Browse</a>
                 </div>
             </div>
             <img src={Image3} alt="" 

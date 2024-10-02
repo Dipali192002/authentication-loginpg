@@ -1,90 +1,55 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Heading from '../Shared/Heading';
 import ProductCard from './ProductCard';
-//images import
-import Img1 from "../../assets/product/p-1.jpg";
-import Img2 from "../../assets/product/p-2.jpg";
-import Img3 from "../../assets/product/p-3.jpg";
-import Img4 from "../../assets/product/p-4.jpg";
-import Img5 from "../../assets/product/p-5.jpg";
-import Img6 from "../../assets/product/p-9.jpg";
-import Img7 from "../../assets/product/p-7.jpg";
-import Img8 from "../../assets/product/p-5.jpg";
 
-const ProductsData =[
-    {
-        id:1,
-        img: Img1,
-        title: "Boat Headphone",
-        price: "120",
-        aosDelay: "0",
-    },
-    {
-        id:2,
-        img: Img2,
-        title: "Rocky Mountain",
-        price: "420",
-        aosDelay: "200",
-    },
-    {
-        id:3,
-        img: Img3,
-        title: "Goggles",
-        price: "320",
-        aosDelay: "400",
-    },
-    {
-        id:4,
-        img: Img4,
-        title: "Printed",
-        price: "220",
-        aosDelay: "600",
-    },
-];
-const ProductsData2 =[
-  {
-      id:1,
-      img: Img5,
-      title: "Boat Headphone",
-      price: "120",
-      aosDelay: "0",
-  },
-  {
-      id:2,
-      img: Img6,
-      title: "Rocky Mountain",
-      price: "420",
-      aosDelay: "200",
-  },
-  {
-      id:3,
-      img: Img7,
-      title: "Goggles",
-      price: "320",
-      aosDelay: "400",
-  },
-  {
-    id:4,
-    img: Img8,
-    title: "Goggles",
-    price: "320",
-    aosDelay: "400",
-},
-];
 const Product = () => {
-  return (
-    <div>
-      <div className="container">
-        {/*header section */}
-        <Heading title="Our Products" subtitle={"Explor Our Products"}/>
+    const [products, setProducts] = useState([]);
+    const location = useLocation();
 
-        {/*body section*/}
-        <ProductCard data = {ProductsData}/>
-        <ProductCard data = {ProductsData2}/>
+    const getQueryParam = (param) => {
+        const searchParams = new URLSearchParams(location.search);
+        return searchParams.get(param);
+    };
+
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const typeParam = getQueryParam('type');
+            let apiUrl = 'http://localhost:3001/v1/product/getProducts';
+            if (typeParam) {
+                // Append the type parameter to the API URL if it exists
+                apiUrl += `?type=${typeParam}`;
+            }
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        'accept': 'application/json',
+                    },
+                });
+                const data = await response.json();
+                setProducts(data);  // assuming data is an array of products
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+
+    return (
+        <div>
+            <div className="container">
+                {/*header section */}
+                <Heading title="Our Products" subtitle={"Explor Our Products"} />
+
+                {/*body section*/}
+                <ProductCard data={products} />
+            </div>
         </div>
-      </div>
-  );
+    );
 };
 
 export default Product;
