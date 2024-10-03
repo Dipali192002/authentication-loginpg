@@ -82,7 +82,7 @@ const App = () => {
         <Category2 />
         <Services />
         <Banner data={BannerData} />
-        <Product />
+        <Product handleLoginPopup={handleLoginPopup}/>
         <Banner data={BannerData2} />
         <Blogs />
         <Partners />

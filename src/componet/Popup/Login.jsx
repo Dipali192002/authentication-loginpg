@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
 import Button from '../Shared/Button';
 
 const Login = ({ loginPopup, handleLoginPopup, handleRegistrationPopup }) => {
     // State for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // State for error message
-    const [error, setError] = useState('');
 
     // Handle input changes
     const handleEmailChange = (e) => setEmail(e.target.value);
@@ -18,27 +18,18 @@ const Login = ({ loginPopup, handleLoginPopup, handleRegistrationPopup }) => {
         e.preventDefault(); // Prevent default form submission
 
         try {
-            const response = await fetch('http://localhost:3001/v1/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
+            const response = await axios.post("http://localhost:3001/v1/auth/login", {
+                email,
+                password,
             });
 
-            if (response.ok) {
-                
-                // Handle successful login, e.g., redirect or update state
-                console.log('Login successful');
-                localStorage.setItem('token', response.data.tokens.access.token);
-                handleLoginPopup(); // Close the login popup on successful login
-            } else {
-                // Handle errors, e.g., display error message
-                const errorData = await response.json();
-                setError(errorData.message || 'Login failed');
-            }
+            localStorage.setItem('token', response.data.tokens.access.token);
+            handleLoginPopup(); // Close the login popup on successful login
+            // }
         } catch (error) {
-            setError('An error occurred');
+            const message = error?.response?.data?.message ?? 'Internal server error';
+            toast.error(message);
+            console.error('Error loggin user:', error);
         }
     };
 
@@ -74,7 +65,6 @@ const Login = ({ loginPopup, handleLoginPopup, handleRegistrationPopup }) => {
                                         onChange={handlePasswordChange}
                                         className='form-input'
                                     />
-                                    {error && <p className='text-red-500'>{error}</p>}
                                     <a
                                         onClick={handleRegistrationPopup}
                                         className='flex justify-center mb-4'
@@ -95,6 +85,7 @@ const Login = ({ loginPopup, handleLoginPopup, handleRegistrationPopup }) => {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </>
     );
 };
